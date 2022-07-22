@@ -95,18 +95,22 @@ public class InjvmProtocol extends AbstractProtocol implements Protocol {
         final boolean isJvmRefer;
         String scope = url.getParameter(Constants.SCOPE_KEY);
         // Since injvm protocol is configured explicitly, we don't need to set any extra flag, use normal refer process.
+        // 判断协议是否是injvm
         if (Constants.LOCAL_PROTOCOL.toString().equals(url.getProtocol())) {
             isJvmRefer = false;
+        // 是否设置了scope参数为local或者injvm参数为true
         } else if (Constants.SCOPE_LOCAL.equals(scope) || (url.getParameter("injvm", false))) {
             // if it's declared as local reference
             // 'scope=local' is equivalent to 'injvm=true', injvm will be deprecated in the future release
             isJvmRefer = true;
+        // 如果设置了范围是远程调用
         } else if (Constants.SCOPE_REMOTE.equals(scope)) {
             // it's declared as remote reference
             isJvmRefer = false;
         } else if (url.getParameter(Constants.GENERIC_KEY, false)) {
             // generic invocation is not local reference
             isJvmRefer = false;
+        // 如果导出服务中存在当前要引用的服务
         } else if (getExporter(exporterMap, url) != null) {
             // by default, go through local reference if there's the service exposed locally
             isJvmRefer = true;

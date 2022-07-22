@@ -16,6 +16,7 @@
  */
 package com.alibaba.dubbo.demo.provider;
 
+import com.alibaba.dubbo.demo.DemoService;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class Provider {
@@ -27,7 +28,19 @@ public class Provider {
         ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(new String[]{"META-INF/spring/dubbo-demo-provider.xml"});
         context.start();
 
-        System.in.read(); // press any key to exit
+        DemoService demoService = (DemoService) context.getBean("demoServiceLoc"); // get remote service proxy
+
+        while (true) {
+            try {
+                Thread.sleep(1000);
+                String hello = demoService.sayHello("world"); // call remote method
+                System.out.println(hello); // get result
+
+            } catch (Throwable throwable) {
+                throwable.printStackTrace();
+            }
+        }
+//        System.in.read(); // press any key to exit
     }
 
 }

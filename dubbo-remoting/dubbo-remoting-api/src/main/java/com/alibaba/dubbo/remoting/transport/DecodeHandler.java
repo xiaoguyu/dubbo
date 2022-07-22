@@ -52,6 +52,8 @@ public class DecodeHandler extends AbstractChannelHandlerDelegate {
     }
 
     private void decode(Object message) {
+        // Decodeable 接口目前有两个实现类，
+        // 分别为 DecodeableRpcInvocation 和 DecodeableRpcResult
         if (message != null && message instanceof Decodeable) {
             try {
                 ((Decodeable) message).decode();

@@ -136,8 +136,10 @@ public abstract class AbstractInvoker<T> implements Invoker<T> {
         }
 
         RpcInvocation invocation = (RpcInvocation) inv;
+        // 设置 Invoker
         invocation.setInvoker(this);
         if (attachment != null && attachment.size() > 0) {
+            // 设置 attachment
             invocation.addAttachmentsIfAbsent(attachment);
         }
         Map<String, String> contextAttachments = RpcContext.getContext().getAttachments();
@@ -148,9 +150,11 @@ public abstract class AbstractInvoker<T> implements Invoker<T> {
              * by the built-in retry mechanism of the Dubbo. The attachment to update RpcContext will no longer work, which is
              * a mistake in most cases (for example, through Filter to RpcContext output traceId and spanId and other information).
              */
+            // 添加 contextAttachments 到 RpcInvocation#attachment 变量中
             invocation.addAttachments(contextAttachments);
         }
         if (getUrl().getMethodParameter(invocation.getMethodName(), Constants.ASYNC_KEY, false)) {
+            // 设置异步信息到 RpcInvocation#attachment 中
             invocation.setAttachment(Constants.ASYNC_KEY, Boolean.TRUE.toString());
         }
         RpcUtils.attachInvocationIdIfAsync(getUrl(), invocation);
@@ -161,6 +165,7 @@ public abstract class AbstractInvoker<T> implements Invoker<T> {
         }
 
         try {
+            // 抽象方法，由子类实现
             return doInvoke(invocation);
         } catch (InvocationTargetException e) { // biz exception
             Throwable te = e.getTargetException();
