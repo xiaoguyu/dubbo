@@ -592,6 +592,7 @@ public class ServiceConfig<T> extends AbstractServiceConfig {
     private void exportLocal(URL url) {
         // 如果 URL 的协议头等于 injvm，说明已经导出到本地了，无需再次导出
         if (!Constants.LOCAL_PROTOCOL.equalsIgnoreCase(url.getProtocol())) {
+            // 将协议设置为injvm
             URL local = URL.valueOf(url.toFullString())
                     .setProtocol(Constants.LOCAL_PROTOCOL)
                     .setHost(LOCALHOST)

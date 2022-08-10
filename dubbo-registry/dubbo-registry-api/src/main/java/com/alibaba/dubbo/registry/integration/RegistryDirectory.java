@@ -239,6 +239,7 @@ public class RegistryDirectory<T> extends AbstractDirectory<T> implements Notify
             }
         }
         // providers
+        // 刷新 Invoker 列表
         refreshInvoker(invokerUrls);
     }
 
@@ -360,6 +361,7 @@ public class RegistryDirectory<T> extends AbstractDirectory<T> implements Notify
                     url = url.setProtocol(routerType);
                 }
                 try {
+                    // 工厂生成route
                     Router router = routerFactory.getRouter(url);
                     if (!routers.contains(router))
                         routers.add(router);

@@ -29,6 +29,7 @@ public class ZookeeperRegistryFactory extends AbstractRegistryFactory {
 
     private ZookeeperTransporter zookeeperTransporter;
 
+    // Dubbo SPI 自动注入
     public void setZookeeperTransporter(ZookeeperTransporter zookeeperTransporter) {
         this.zookeeperTransporter = zookeeperTransporter;
     }

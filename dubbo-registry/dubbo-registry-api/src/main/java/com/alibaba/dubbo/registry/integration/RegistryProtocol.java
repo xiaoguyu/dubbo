@@ -137,6 +137,7 @@ public class RegistryProtocol implements Protocol {
     @Override
     public <T> Exporter<T> export(final Invoker<T> originInvoker) throws RpcException {
         //export invoker
+        // 远程服务暴露
         final ExporterChangeableWrapper<T> exporter = doLocalExport(originInvoker);
 
         // 获取注册中心 URL，以 zookeeper 注册中心为例，得到的示例 URL 如下：
@@ -144,7 +145,7 @@ public class RegistryProtocol implements Protocol {
         URL registryUrl = getRegistryUrl(originInvoker);
 
         //registry provider
-        // 根据 URL 加载 Registry 实现类，比如 ZookeeperRegistry
+        // 根据 URL 加载 Registry 实现类，比如 ZookeeperRegistry，这里已经连接上注册中心，但是还没有将服务注册上去
         final Registry registry = getRegistry(originInvoker);
         // 获取已注册的服务提供者 URL，比如：
         // dubbo://172.17.48.52:20880/com.alibaba.dubbo.demo.DemoService?anyhost=true&application=demo-provider&dubbo=2.0.2&generic=false&interface=com.alibaba.dubbo.demo.DemoService&methods=sayHello
