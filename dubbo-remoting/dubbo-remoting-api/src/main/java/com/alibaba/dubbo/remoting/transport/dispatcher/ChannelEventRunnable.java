@@ -61,6 +61,7 @@ public class ChannelEventRunnable implements Runnable {
                 logger.warn("ChannelEventRunnable handle " + state + " operation error, channel is " + channel
                         + ", message is " + message, e);
             }
+        // 其他消息类型通过 switch 进行处理
         } else {
             switch (state) {
             case CONNECTED:

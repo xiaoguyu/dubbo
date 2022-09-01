@@ -157,6 +157,7 @@ public abstract class AbstractInvoker<T> implements Invoker<T> {
             // 设置异步信息到 RpcInvocation#attachment 中
             invocation.setAttachment(Constants.ASYNC_KEY, Boolean.TRUE.toString());
         }
+        // 添加调用id
         RpcUtils.attachInvocationIdIfAsync(getUrl(), invocation);
 
         Byte serializationId = CodecSupport.getIDByName(getUrl().getParameter(SERIALIZATION_KEY, DEFAULT_REMOTING_SERIALIZATION));
